@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Tuple< blog.Models.POCO.Post, List<blog.Models.POCO.Comment>, blog.Models.POCO.Comment >
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,43 +13,50 @@
 
 <div class="container mt-5 mb-5 ">
     <div class="d-flex justify-content-center row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                @if (ViewBag.Message != "")
+                {
+                    <div class="alert alert-@ViewBag.Status">
+                        <strong>@ViewBag.Message</strong>
+                    </div>
+                }
+            </div>
+        </div>
         <div class="col-md-8">
             <a href="/Post/Index" class="font-weight-bold" style="color:dark;">Kembali</a>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <div>{{ $pertanyaan->get_users->name}}</div>
-                    <div class="text-muted small">{{ $pertanyaan->created_at->diffForHumans() }}</div>
-                </div>
+            <div class="card mb-4 p-4">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => modelItem.Item1.Title)</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Author : @Html.DisplayFor(modelItem => modelItem.Item1.User.FullName)</h6>
                 <div class="card-body">
-                    <p>{{ $pertanyaan->pertanyaan }}</p>
-                </div>
-                <div class="card-footer pl-3">
+                    <p>@Html.DisplayFor(modelItem => modelItem.Item1.Description)</p>
                 </div>
             </div>
 
             <!-- BUAT KOMENTAR -->
             <h5> Tambahkan Komentar </h5>
-            <form method="post" action="/jawabans">
+            @using (Html.BeginForm("CreateComment", "Post", new { id= Model.Item3.PostID }, FormMethod.Post))
+            {
                 <div class="form-group">
-                    <textarea class="form-control" id="jawaban" name=jawaban rows="3"></textarea>
-                    <input hidden type="text" class="form-control" id="user_id" name=user_id value="{{ Auth::user()->id }}">
-                    <input hidden type="text" class="form-control" id="pertanyaan_id" name=pertanyaan_id value="{{ $pertanyaan->id }}">
+                    @Html.TextAreaFor(m => m.Item3.Description, new { @class = "form-control", @placeholder = "Comment", @rows = "3" })
+                    @Html.ValidationMessageFor(m => m.Item3.Description, "", new { @class = "text-danger" })
                 </div>
                 <button class="btn btn-primary mb-5" type="submit">Kirim</button>
-            </form>
+            }
 
             <!-- DAFTAR KOMENTAR -->
             <h3 class="mb-3">Komentar </h3>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <div>{{ $pertanyaan->get_users->name}}</div>
-                    <div class="text-muted small">{{ $pertanyaan->created_at->diffForHumans() }}</div>
+            @foreach (var comment in Model.Item2)
+            {
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <div>@comment.User.FullName</div>
+                    </div>
+                    <div class="card-body">
+                        <p>@comment.Description</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p>{{ $pertanyaan->pertanyaan }}</p>
-                </div>
-                <div class="card-footer pl-3">
-                </div>
-            </div>
+            }
         </div>
     </div>
+<</div>

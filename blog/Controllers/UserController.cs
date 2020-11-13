@@ -18,13 +18,16 @@ namespace blog.Controllers
         private UserRepository userRepository = new UserRepository();
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Registration()
         {
+            if (HttpContext.User.Identity.IsAuthenticated) return RedirectToAction("Index", "Home");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult Registration(RegisterViewModel registerModel)
         {
             string message = "";
@@ -55,19 +58,27 @@ namespace blog.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            if (HttpContext.User.Identity.IsAuthenticated) return RedirectToAction("Index", "Home");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult Login(LoginViewModel loginModel, string ReturnUrl="")
         {
+            string message = "";
+            string status = "";
             if (ModelState.IsValid)
             {
                 loginModel.Password = GetMD5(loginModel.Password);
                 var userData = userRepository.Login(loginModel);
                 if (userData != null)
                 {
+                    Session["FullName"] = userData.FullName;
+                    Session["Email"] = userData.Email;
+                    Session["UserID"] = userData.UserID;
+
                     int timeout = 1008;
                     var ticket = new FormsAuthenticationTicket(loginModel.Email, true, timeout);
                     var encrypted = FormsAuthentication.Encrypt(ticket);
@@ -85,7 +96,14 @@ namespace blog.Controllers
                         return RedirectToAction("Index", "Home");
                     }
                 }
+                else
+                {
+                    message = "Email/Password Wrong";
+                    status = "danger";
+                }
             }
+            ViewBag.Message = message;
+            ViewBag.Status = status;
             return View();
         }
 
@@ -109,6 +127,7 @@ namespace blog.Controllers
         [HttpPost]
         public ActionResult Logout()
         {
+            Session.Clear();
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "User");
         }

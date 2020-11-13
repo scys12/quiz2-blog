@@ -45,12 +45,14 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Nizayulia <span class="caret"></span>
+                                    <i class="far fa-user"></i>
+                                    @HttpContext.Current.User.Identity.Name<span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     @using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logout-form" }))
                                     {
+                                        @Html.AntiForgeryToken()
                                         <a class="dropdown-item" href="" onclick="event.preventDefault();
                                                                 document.getElementById('logout-form').submit();">
                                             Logout
@@ -73,10 +75,9 @@
             </div>
         </nav>
     </div>
-    </div>
     <br />
     <br />
-    <div class="container body-content">
+    <div class="py-4 body-content">
         @RenderBody()
         <hr />
         <footer>

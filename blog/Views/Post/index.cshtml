@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<blog.Models.POCO.Post>
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,8 +10,8 @@
 </style>
 
 <br />
-<div class="row">
-    <div class="col-lg-12 margin-tb">
+<div class="row">    
+    <div class="col-lg-12 margin-tb">        
         <div class="pull-left">
             <h2 style="font-weight: bold;margin-top:20px">All My Posts</h2>
         </div>
@@ -19,12 +20,12 @@
         </div>
     </div>
 </div>
-@*@if (ViewBag.Message != "")
-    {
-        <div class="alert alert-@ViewBag.Status">
-            <strong>@ViewBag.Message</strong>
-        </div>
-    }*@
+@if (ViewBag.Message != "")
+{
+    <div class="alert alert-@ViewBag.Status">
+        <strong>@ViewBag.Message</strong>
+    </div>
+}
 
 <table class="table table-bordered table-hover" style="table-layout: fixed">
     <tr>
@@ -33,18 +34,29 @@
         <th>Description</th>
         <th width="280px">Action</th>
     </tr>
-    <tr>
-        <td>1</td>
-        <td style="word-wrap: break-word">Are women suitable for coding-related jobs? </td>
-        <td style="word-wrap: break-word">
-            To give a perhaps better illustration of my argument consider math. 
-            Sure there are female math geniuses out there (one actually won a Fields medal) but problem the whole history of modern physics and maths inch by inch and then compare the results.  How many males vs females?
-        </td>
-        <td>
-            <a class="btn btn-info" href="../Post/Show">Show</a>
-            <a class="btn btn-primary" href="../Post/Edit">Edit</a>
-            <a class="btn btn-danger" href="#">Delete</a>
-            </form>
-        </td>
-    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>1</td>
+                <td style="word-wrap: break-word">@Html.DisplayFor(modelItem => item.Title)</td>
+                <td style="word-wrap: break-word">
+                    @Html.Raw(item.Description.Length > 50 ? item.Description.Substring(0, 50) : item.Description)
+                </td>
+                <td>
+                    <a class="btn btn-info" href="../Post/Show/@item.PostID">Show</a>
+                    <a class="btn btn-primary" href="../Post/Edit/@item.PostID">Edit</a>
+                    @using (Html.BeginForm("Delete", "Post", new { id = @item.PostID }, FormMethod.Post, new { id = "delete-form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <a class="btn btn-danger" href="" onclick="event.preventDefault();
+                                                                document.getElementById('delete-form').submit();">
+                            Delete
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+
+    </tbody>
 </table>

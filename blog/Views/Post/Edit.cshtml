@@ -1,31 +1,42 @@
-﻿@{
+﻿@model blog.Models.POCO.Post
+@{
+    ViewBag.Title = "Create Post";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
-    body {
-        background-image: url('/Content/home-bg.jpg');
-        "}
+    .container-create-post:hover {
+        transform: translateY(5px);
+    }
 </style>
 <br />
 
 <div class="page-header clear-filter" filter-color="orange">
-    <div class="page-header-image" data-parallax="true" style="background-image:url({{asset('../assets/img/header.jpg')}});">
+    <div class="page-header-image" data-parallax="true">
     </div>
-    <div class="container">
+    <div class="container container-create-post shadow p-5" style="transition:all ease 0.3s;background:#ddd;border-radius:10px">
 
-        <form method="POST" action="{{action('PostController@store')}}" style="text-align:center">
+        <div class="d-flex justify-content-center" style="text-transform:uppercase">
+            <h3>Edit Post</h3>
+        </div>
+
+        @using (Html.BeginForm("Edit", "Post", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m=> m.UserID)
             <div class="form-group">
-                <label for="title" class="font-weight-bold" style="text-align:center">Title</label>
-                <input type="text" style="background-color: white" name="title" class="form-control" id="title" placeholder="Title">
+                @Html.LabelFor(m => m.Title, new { @class = "font-weight-bold", @style = "text-align:center;font-size: 24px;", @for = "title" })
+                @Html.EditorFor(m => m.Title, new { htmlAttributes = new { @class = "form-control", @placeholder = "Title", @style = "background-color: white" } })
+                @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                <label for="description" class="font-weight-bold">Description</label>
-                <textarea placeholder="Description" class="form-control" id="description" type="text" name="description" style="background-color: white" height="auto" rows="7"></textarea>
+                @Html.LabelFor(m => m.Description, new { @class = "font-weight-bold", @style = "text-align:center; font-size: 24px;", @for = "description" })
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @placeholder = "Description", @style = "background-color: white", @height = "auto", @rows = "7" })
+                @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
             </div>
 
-            <button class="btn btn-primary" type="submit">
-                POST
+            <button class="btn btn-secondary" type="submit">
+                Edit Post
             </button>
-        </form>
+        }
     </div>
 </div>

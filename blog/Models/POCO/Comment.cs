@@ -12,7 +12,6 @@ namespace blog.Models.POCO
         public virtual Post Post { get; set; }
         public int UserID { get; set; }
         public virtual User User { get; set; }
-        public string Title { get; set; }
         public string Description { get; set; }
     }
 }

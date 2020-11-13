@@ -14,9 +14,11 @@ namespace blog.Models.POCO
         public virtual User User { get; set; }
 
         [Required(AllowEmptyStrings = false)]
+        [StringLength(200, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         public string Title { get; set; }
 
         [Required(AllowEmptyStrings = false)]
+        [StringLength(500, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         public string Description { get; set; }
     }
 }
