@@ -45,15 +45,16 @@ namespace blog.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult CreateComment(int? id, Comment comment)
+        public ActionResult CreateComment(int? id, string description)
         {
             string message = "";
             string status = "";
-            System.Diagnostics.Debug.WriteLine(comment.Description);
             if (ModelState.IsValid)
             {
+                var comment = new Comment();
                 comment.UserID = (int)Session["UserID"];
                 comment.PostID = id.Value;
+                comment.Description = description;
                 commentRepository.CreateComment(comment);
                 message = "comment successfully inserted";
                 status = "success";
@@ -66,7 +67,7 @@ namespace blog.Controllers
             }
             ViewBag.Message = message;
             ViewBag.Status = status;
-            return RedirectToAction("Show", "Post", new { id=comment.PostID });
+            return RedirectToAction("Show", "Post", new { id=id });
         }
 
         [HttpPost]
@@ -96,7 +97,7 @@ namespace blog.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult DeleteComment(int? id)
+        public ActionResult DeleteComment(int? id, int postID)
         {
             string message = "";
             string status = "";
@@ -114,9 +115,9 @@ namespace blog.Controllers
                     message = "Error deleting comment";
                     status = "danger";
                 }
-                ViewBag.Message = message;
-                ViewBag.Status = status;
-                return RedirectToAction("Show", "Post", new { id = id.Value });
+                TempData["message"] = message;
+                TempData["status"] = status;
+                return RedirectToAction("Show", "Post", new { id = postID});
             }
             return HttpNotFound();
 
@@ -228,14 +229,18 @@ namespace blog.Controllers
         [Authorize]
         public ActionResult Show(int? id)
         {
+            if ((string)TempData["message"] != "")
+            {
+                ViewBag.Message = TempData["message"];
+                ViewBag.Status = TempData["status"];
+            }
             if (id != null)
             {
                 Post post = postRepository.GetPost(id.Value);
                 if (post != null)
-                {
-                    List<Comment> newComment = new List<Comment>();
+                {                    
                     List<Comment> comments = commentRepository.commentsPost(post.PostID);
-                    return View(Tuple.Create(post, comments, newComment));
+                    return View(Tuple.Create(post, comments));
                 }
             }
             return HttpNotFound();
