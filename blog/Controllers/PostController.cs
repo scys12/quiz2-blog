@@ -22,7 +22,7 @@ namespace blog.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            if (TempData["message"] != "")
+            if ((string)TempData["message"] != "")
             {
                 ViewBag.Message = TempData["message"];
                 ViewBag.Status = TempData["status"];
@@ -43,12 +43,13 @@ namespace blog.Controllers
             return HttpNotFound();
         }
 
-        [HttpGet]
+        [HttpPost]
         [Authorize]
         public ActionResult CreateComment(int? id, Comment comment)
         {
             string message = "";
             string status = "";
+            System.Diagnostics.Debug.WriteLine(comment.Description);
             if (ModelState.IsValid)
             {
                 comment.UserID = (int)Session["UserID"];
@@ -68,7 +69,7 @@ namespace blog.Controllers
             return RedirectToAction("Show", "Post", new { id=comment.PostID });
         }
 
-        [HttpGet]
+        [HttpPost]
         [Authorize]
         public ActionResult UpdateComment(int? id, Comment comment)
         {
@@ -93,27 +94,32 @@ namespace blog.Controllers
             return RedirectToAction("Show", "Post", new { id = comment.PostID });
         }
 
-        public ActionResult DeleteComment(int? id, Comment comment)
+        [HttpPost]
+        [Authorize]
+        public ActionResult DeleteComment(int? id)
         {
             string message = "";
             string status = "";
-            if (ModelState.IsValid)
+            if (id != null)
             {
-                comment.UserID = (int)Session["UserID"];
-                comment.PostID = id.Value;
-                commentRepository.DeleteComment(comment.CommentID);
-                message = "comment successfully deleted";
-                status = "success";
-                ModelState.Clear();
+                var isDelete = commentRepository.DeleteComment(id.Value);
+                if (isDelete)
+                {
+                    message = "comment successfully deleted";
+                    status = "success";
+                    ModelState.Clear();
+                }
+                else
+                {
+                    message = "Error deleting comment";
+                    status = "danger";
+                }
+                ViewBag.Message = message;
+                ViewBag.Status = status;
+                return RedirectToAction("Show", "Post", new { id = id.Value });
             }
-            else
-            {
-                message = "Error deleting comment";
-                status = "danger";
-            }
-            ViewBag.Message = message;
-            ViewBag.Status = status;
-            return RedirectToAction("Show", "Post", new { id = comment.PostID });
+            return HttpNotFound();
+
         }
 
         [HttpGet]
@@ -227,8 +233,9 @@ namespace blog.Controllers
                 Post post = postRepository.GetPost(id.Value);
                 if (post != null)
                 {
+                    List<Comment> newComment = new List<Comment>();
                     List<Comment> comments = commentRepository.commentsPost(post.PostID);
-                    return View(Tuple.Create(post, comments, new Comment()));
+                    return View(Tuple.Create(post, comments, newComment));
                 }
             }
             return HttpNotFound();

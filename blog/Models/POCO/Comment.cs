@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace blog.Models.POCO
 {
@@ -12,6 +13,8 @@ namespace blog.Models.POCO
         public virtual Post Post { get; set; }
         public int UserID { get; set; }
         public virtual User User { get; set; }
+
+        [Required(AllowEmptyStrings = false)]
         public string Description { get; set; }
     }
 }

@@ -86,7 +86,7 @@ namespace blog.Models.Repository
             connection();
             string query = "INSERT INTO Comments VALUES(@post_id, @user_id, @description)";
             SqlCommand sqlCommand = new SqlCommand(query, con);
-            sqlCommand.Parameters.AddWithValue("@user_id", comment.PostID);
+            sqlCommand.Parameters.AddWithValue("@post_id", comment.PostID);
             sqlCommand.Parameters.AddWithValue("@user_id", comment.UserID);
             sqlCommand.Parameters.AddWithValue("@description", comment.Description);
 

@@ -156,3 +156,7 @@ C:\Users\papua\source\repos\blog\blog\obj\Debug\blog.csproj.CoreCompileInputs.ca
 C:\Users\papua\source\repos\blog\blog\obj\Debug\blog.csproj.CopyComplete
 C:\Users\papua\source\repos\blog\blog\obj\Debug\blog.dll
 C:\Users\papua\source\repos\blog\blog\obj\Debug\blog.pdb
+C:\Users\papua\source\repos\blog\blog\bin\Microsoft.Configuration.ConfigurationBuilders.Base.dll
+C:\Users\papua\source\repos\blog\blog\bin\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.dll
+C:\Users\papua\source\repos\blog\blog\bin\Microsoft.Configuration.ConfigurationBuilders.Base.xml
+C:\Users\papua\source\repos\blog\blog\bin\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.xml

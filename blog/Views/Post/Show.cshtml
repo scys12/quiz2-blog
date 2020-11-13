@@ -1,4 +1,4 @@
-﻿@model Tuple< blog.Models.POCO.Post, List<blog.Models.POCO.Comment>, blog.Models.POCO.Comment >
+﻿@model Tuple< blog.Models.POCO.Post, List<blog.Models.POCO.Comment>, List<blog.Models.POCO.Comment> >
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -6,7 +6,7 @@
 <style>
     body {
         background-image: url('/Content/home-bg.jpg');
-        "}
+        }
 
 </style>
 
@@ -35,13 +35,16 @@
 
             <!-- BUAT KOMENTAR -->
             <h5> Tambahkan Komentar </h5>
-            @using (Html.BeginForm("CreateComment", "Post", new { id= Model.Item3.PostID }, FormMethod.Post))
+            @using (Html.BeginForm("CreateComment", "Post", new { id = Model.Item1.PostID }, FormMethod.Post))
             {
-                <div class="form-group">
-                    @Html.TextAreaFor(m => m.Item3.Description, new { @class = "form-control", @placeholder = "Comment", @rows = "3" })
-                    @Html.ValidationMessageFor(m => m.Item3.Description, "", new { @class = "text-danger" })
-                </div>
-                <button class="btn btn-primary mb-5" type="submit">Kirim</button>
+        <div class="form-group">
+            @foreach (var item in Model.Item3)
+            {
+                @Html.TextAreaFor(m => item.Description, new { @class = "form-control", @placeholder = "Comment", @rows = "3" })
+                @Html.ValidationMessageFor(m => item.Description, "", new { @class = "text-danger" })
+            }
+        </div>
+                <button class="btn btn-primary mb-5" type="submit">Add Comment</button>
             }
 
             <!-- DAFTAR KOMENTAR -->
@@ -54,9 +57,17 @@
                     </div>
                     <div class="card-body">
                         <p>@comment.Description</p>
+                        @using (Html.BeginForm("DeleteComment", "Post", new { id = @comment.CommentID }, FormMethod.Post, new { id = "delete-form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <a class="btn btn-danger" href="" onclick="event.preventDefault();
+                                                                        document.getElementById('delete-form').submit();">
+                                Delete
+                            </a>
+                        }
                     </div>
                 </div>
             }
         </div>
     </div>
-<</div>
+</div>
