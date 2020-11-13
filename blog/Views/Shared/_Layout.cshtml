@@ -11,8 +11,8 @@
     <div id="app">
         <nav class="navbar fixed-top navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
-                    @Html.ActionLink("ElvizaComunity", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand" href="{{ url('../Home/AllPost') }}">
+                    @Html.ActionLink("ElvizaComunity", "AllPost", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -34,7 +34,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="~/Home/Index">
+                                    <a class="dropdown-item" href="~/Home/AllPost">
                                         Home
                                     </a>
                                     <a class="dropdown-item" href="~/Post/index">
