@@ -9,11 +9,11 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar fixed-top navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark text-white shadow-sm">
             <div class="container">
                 @if (Request.IsAuthenticated)
                 {
-                    <a class="navbar-brand" href="{{ url('../Home/AllPost') }}">
+                    <a class="navbar-brand" href="../Home/AllPost'">
                         ElvizaComunity
                     </a>
                 }
@@ -36,20 +36,19 @@
                         <!-- Authentication Links -->
                         @if (Request.IsAuthenticated)
                         {
+                            <li class="nav-item">
+                                <a class="nav-link" href="../Home/AllPost">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../Post/Index">My Post</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Username <span class="caret"></span>
+                                    Nizayulia <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="~/Home/AllPost">
-                                        Home
-                                    </a>
-                                    <a class="dropdown-item" href="~/Post/index">
-                                        My Post
-                                    </a>
-                                    <div class="dropdown-divider"></div>
                                     @using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logout-form" }))
                                     {
                                         <a class="dropdown-item" href="" onclick="event.preventDefault();
