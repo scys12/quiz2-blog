@@ -1,17 +1,44 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<style>
+    body {
+        background-image: url('/Content/home-bg.jpg');
+        "}
+</style>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<div class="container-fluid" style="background-color:lavenderblush">
+    <div class="row >
+        <!-- Post Content Column -->
+        <div class="col-lg-8" style="margin: auto">
+            <!-- Title -->
+            <h1 class="mt-4" style="font-weight:bolder">Judulnya</h1>
+            <!-- Author -->
+            <p >
+                by
+                <a href="#">Username</a>
+            </p>
+            <!-- Date/Time -->
+            <p>Posted on : Tanggal Post</p>
+            <hr>
+            <!-- Post Content -->
+            <h3  style="word-wrap: break-word">Blalalallalallaaa deskripsinyaa</h3>
+            <hr>
+            <div class="card my-4">
+                <h5 class="card-header">Leave a Comment:</h5>
+                <div class="card-body align-content-center">
+                    <form method="POST" action="{{action('CommentController@store')}}">
+                        <div class="form-group">
+                            <textarea name="body" class="form-control" style="width:800px" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Post Comment</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Comments Form -->
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container --> 
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>

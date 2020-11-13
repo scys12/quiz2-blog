@@ -1,3 +1,48 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-preview">
+                <a href="#">
+                    <h2 class="post-title" style="word-wrap: break-word">
+                        Judul Post
+                    </h2>
+                    <h2 class="post-subtitle" style="word-wrap: break-word">
+                        Isi Post
+                    </h2>
+                </a>
+                <p class="post-meta">
+                    Posted by
+                    <a href="#">User yang buat post</a>
+                    Tanggal Post
+                </p>
+            </div>
+
+            @*if($dashboard->nextPageUrl() != null)
+                {
+                <div class="clearfix">
+                    <a class="btn btn-primary float-right" href="{{$dashboard->nextPageUrl()}}">Older Posts &rarr;</a>
+                </div>
+                }
+
+                if ($dashboard->previousPageUrl() != null)
+                {
+                    if ($dashboard->toArray()['first_page_url'])
+                    {
+                        <div class="clearfix">
+                            <a class="btn btn-primary float-left" href="{{url('dashboard')}}">&larr; Newer Posts</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="clearfix">
+                            <a class="btn btn-primary float-left" href="{{$dashboard->previousPageUrl()}}">&larr; Newer Posts</a>
+                        </div>
+                    }
+                }*@
+        </div>
+    </div>
+</div>
