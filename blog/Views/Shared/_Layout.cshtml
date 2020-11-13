@@ -11,9 +11,18 @@
     <div id="app">
         <nav class="navbar fixed-top navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('../Home/AllPost') }}">
-                    @Html.ActionLink("ElvizaComunity", "AllPost", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </a>
+                @if (Request.IsAuthenticated)
+                {
+                    <a class="navbar-brand" href="{{ url('../Home/AllPost') }}">
+                        ElvizaComunity
+                    </a>
+                }
+                else
+                {
+                    <a class="navbar-brand" href="../Home/Index">
+                        ElvizaComunity
+                    </a>
+                }
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                         aria-label="{{ __('Toggle navigation') }}">
