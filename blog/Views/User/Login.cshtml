@@ -13,7 +13,7 @@
 
 <br />
 
-@using (Html.BeginForm( "", "", FormMethod.Post, new { @style= "display: flex;justify-content: center;"})) 
+@using (Html.BeginForm( "Login", "User", FormMethod.Post, new { @style= "display: flex;justify-content: center;"})) 
 {
     @Html.AntiForgeryToken()
 <div class="col-md-8 justify-content-between">
