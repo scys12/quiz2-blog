@@ -1,49 +1,95 @@
-﻿@{
+@{
      Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    body {
+        background-image: url('../../Content/bg-7.png');
+        "}
+</style>
+
 <div class="container">
-    <div class="row">
+    <div class="row mt-4">
         <div class="col-lg-8 col-md-10 mx-auto">
             <div class="post-preview">
                 <a href="#">
                     <h2 class="post-title" style="word-wrap: break-word">
                         Judul Post
                     </h2>
-                    <h2 class="post-subtitle" style="word-wrap: break-word">
-                        Isi Post
-                    </h2>
+                    <br />
+                    <h5 class="post-subtitle" style="word-wrap: break-word">
+                        misalnya ini isi postnya gt, jadi ini isinya teks gtkan, ini
+                        tulisannya dipanjang panjangin biar keliatan semanasih keliatan
+                        di websitenya hehehe:)
+                    </h5>
                 </a>
                 <p class="post-meta">
                     Posted by
-                    <a href="#">User yang buat post</a>
-                    Tanggal Post
+                    <a href="#">User yang buat post</a> <br />
+                    Posting Date 21 Maret 2020
+                </p>
+            </div>
+            <hr />
+            <div class="post-preview">
+                <a href="#">
+                    <h2 class="post-title" style="word-wrap: break-word">
+                        Judul Post Ke-2
+                    </h2>
+                    <br />
+                    <h5 class="post-subtitle" style="word-wrap: break-word">
+                        misalnya ini isi postnya gt, jadi ini isinya teks gtkan, ini
+                        tulisannya dipanjang panjangin biar keliatan semanasih keliatan
+                        di websitenya hehehe:)
+                    </h5>
+                </a>
+                <p class="post-meta">
+                    Posted by
+                    <a href="#">User yang buat post</a> <br />
+                    Posting Date 21 Maret 2020
+                </p>
+            </div>
+            <hr />
+            <div class="post-preview">
+                <a href="#">
+                    <h2 class="post-title" style="word-wrap: break-word">
+                        Judul Post Ke-3
+                    </h2>
+                    <br />
+                    <h5 class="post-subtitle" style="word-wrap: break-word">
+                        misalnya ini isi postnya gt, jadi ini isinya teks gtkan, ini
+                        tulisannya dipanjang panjangin biar keliatan semanasih keliatan
+                        di websitenya hehehe:)
+                    </h5>
+                </a>
+                <p class="post-meta">
+                    Posted by
+                    <a href="#">User yang buat post</a> <br />
+                    Posting Date 21 Maret 2020
                 </p>
             </div>
 
             @*if($dashboard->nextPageUrl() != null)
-                {
-                <div class="clearfix">
-                    <a class="btn btn-primary float-right" href="{{$dashboard->nextPageUrl()}}">Older Posts &rarr;</a>
-                </div>
-                }
+        {
+        <div class="clearfix">
+            <a class="btn btn-secondary float-right" href="{{$dashboard->nextPageUrl()}}">Older Posts &rarr;</a>
+        </div>
+        }
 
-                if ($dashboard->previousPageUrl() != null)
-                {
-                    if ($dashboard->toArray()['first_page_url'])
-                    {
-                        <div class="clearfix">
-                            <a class="btn btn-primary float-left" href="{{url('dashboard')}}">&larr; Newer Posts</a>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="clearfix">
-                            <a class="btn btn-primary float-left" href="{{$dashboard->previousPageUrl()}}">&larr; Newer Posts</a>
-                        </div>
-                    }
-                }*@
+        if ($dashboard->previousPageUrl() != null)
+        {
+            if ($dashboard->toArray()['first_page_url'])
+            {
+                <div class="clearfix">
+                    <a class="btn btn-secondary float-left" href="{{url('dashboard')}}">&larr; Newer Posts</a>
+                </div>
+            }
+            else
+            {
+                <div class="clearfix">
+                    <a class="btn btn-secondary float-left" href="{{$dashboard->previousPageUrl()}}">&larr; Newer Posts</a>
+                </div>
+            }
+        }*@
         </div>
     </div>
 </div>
-
