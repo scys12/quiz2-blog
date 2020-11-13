@@ -2,16 +2,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<style>
     body {
         background-image: url('/Content/home-bg.jpg');
         "}
+
 </style>
+
 
 <div class="container mt-5 mb-5 ">
     <div class="d-flex justify-content-center row">
         <div class="col-md-8">
-            <a href="/home" class="font-weight-bold" style="color:dark;">Kembali</a>
+            <a href="/Post/Index" class="font-weight-bold" style="color:dark;">Kembali</a>
             <div class="card mb-4">
                 <div class="card-header">
                     <div>{{ $pertanyaan->get_users->name}}</div>
