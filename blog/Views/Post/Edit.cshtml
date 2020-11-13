@@ -8,17 +8,18 @@
 </style>
 
 <div class="page-header clear-filter" filter-color="orange">
-    <div class="page-header-image" data-parallax="true">
+    <div class="page-header-image" data-parallax="true" style="background-image:url({{asset('../assets/img/header.jpg')}});">
     </div>
-    <div class="container ">
-        <form method="POST" action="{{action('PostController@store')}}">
-            <div class="form-group text-center">
-                <label for="title">Title</label>
-                <input type="text" style="max-width:inherit" name="title" class="form-control " id="title" placeholder="Title">
+    <div class="container">
+
+        <form method="POST" action="{{action('PostController@store')}}" style="text-align:center">
+            <div class="form-group">
+                <label for="title" class="font-weight-bold" style="text-align:center">Title</label>
+                <input type="text" style="background-color: white" name="title" class="form-control" id="title" placeholder="Title">
             </div>
-            <div class="form-group  text-center">
-                <label for="description">Description</label>
-                <textarea placeholder="Description" style="max-width:inherit" class="form-control" id="description" type="text" name="description" style="background-color: white" height="auto" rows="7"></textarea>
+            <div class="form-group">
+                <label for="description" class="font-weight-bold">Description</label>
+                <textarea placeholder="Description" class="form-control" id="description" type="text" name="description" style="background-color: white" height="auto" rows="7"></textarea>
             </div>
 
             <button class="btn btn-primary" type="submit">
