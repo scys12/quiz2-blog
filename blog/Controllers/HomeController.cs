@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace blog.Controllers
 {
-    public class PostController : Controller
+    public class HomeController : Controller
     {
         public ActionResult Index()
         {
@@ -21,6 +21,13 @@ namespace blog.Controllers
         }
 
         public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult AllPost()
         {
             ViewBag.Message = "Your contact page.";
 

@@ -106,6 +106,7 @@ namespace blog.Controllers
 
         // Log Out 
         [Authorize]
+        [HttpPost]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
