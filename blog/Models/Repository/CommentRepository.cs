@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 using System.Configuration;
 using blog.Models.POCO;
 
-
 namespace blog.Models.Repository
 {
     public class CommentRepository
@@ -48,6 +47,36 @@ namespace blog.Models.Repository
                 );
             }
             return commentList;
+        }
+
+        public Comment GetComment(int commentID)
+        {
+            connection();
+            Comment comment = new Comment();
+            string query = "SELECT * FROM Comments WHERE CommentID=@comment_id";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@comment_id", commentID);
+            SqlDataAdapter sd = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+
+            con.Open();
+            sd.Fill(dt);
+            con.Close();
+
+            if (dt.Rows.Count == 1)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    comment.CommentID = Convert.ToInt32(dr["CommentID"]);
+                    comment.PostID = Convert.ToInt32(dr["PostID"]);
+                    comment.Post = postRepository.GetPost(Convert.ToInt32(dr["PostID"]));
+                    comment.Description = Convert.ToString(dr["Description"]);
+                    comment.UserID = Convert.ToInt32(dr["UserID"]);
+                    comment.User = userRepository.GetUserDetail(comment.UserID);
+                }
+                return comment;
+            }
+            return null;
         }
 
         public List<Comment> commentsPost(int postID)
@@ -103,11 +132,12 @@ namespace blog.Models.Repository
         public bool UpdateComment(Comment comment)
         {
             connection();
-            string query = "UPDATE Posts SET PostID=@post_id, UserID=@user_id, Description=@description WHERE CommentID=@comment_id";
+            string query = "UPDATE Comments SET PostID=@post_id, UserID=@user_id, Description=@description WHERE CommentID=@comment_id";
             SqlCommand sqlCommand = new SqlCommand(query, con);
             sqlCommand.Parameters.AddWithValue("@post_id", comment.PostID);
             sqlCommand.Parameters.AddWithValue("@user_id", comment.UserID);
             sqlCommand.Parameters.AddWithValue("@description", comment.Description);
+            sqlCommand.Parameters.AddWithValue("@comment_id", comment.CommentID);
 
             con.Open();
             int i = sqlCommand.ExecuteNonQuery();

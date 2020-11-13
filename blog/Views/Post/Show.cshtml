@@ -50,7 +50,7 @@
             {
                 <div class="card mb-4">
                     <div class="card-header">
-                        <div>@comment.User.FullName</div>
+                        <h3>Author: @comment.User.FullName</h3>
                     </div>
                     <div class="card-body">
                         <p>@comment.Description</p>
@@ -59,11 +59,14 @@
                         {
                             using (Html.BeginForm("DeleteComment", "Post", new { id = @comment.CommentID }, FormMethod.Post, new { id = "delete-form" }))
                             {
-                                <input type="hidden" value="@comment.PostID" name="postID"/>
+                                <input type="hidden" value="@comment.PostID" name="postID" />
                                 @Html.AntiForgeryToken()
                                 <a class="btn btn-danger" href="" onclick="event.preventDefault();
                                                                         document.getElementById('delete-form').submit();">
                                     Delete
+                                </a>
+                                <a class="btn btn-warning" href="/Post/UpdateComment/@comment.CommentID">
+                                    Update
                                 </a>
                             }
                         }

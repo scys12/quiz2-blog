@@ -56,18 +56,38 @@ namespace blog.Controllers
                 comment.PostID = id.Value;
                 comment.Description = description;
                 commentRepository.CreateComment(comment);
+                ModelState.Clear();
                 message = "comment successfully inserted";
                 status = "success";
-                ModelState.Clear();
             }
             else
             {
                 message = "Error creating comment";
                 status = "danger";
             }
-            ViewBag.Message = message;
-            ViewBag.Status = status;
+            TempData["message"]= message;
+            TempData["status"] = status;
             return RedirectToAction("Show", "Post", new { id=id });
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult UpdateComment(int? id)
+        {
+            if (id != null)
+            {
+                var comment = commentRepository.GetComment(id.Value);
+                if (comment != null && comment.User.Email == HttpContext.User.Identity.Name)
+                {
+                    return View(comment);
+                }
+                else
+                {
+                    return HttpNotFound();
+                }                
+            }
+            return HttpNotFound();
+
         }
 
         [HttpPost]
@@ -78,20 +98,31 @@ namespace blog.Controllers
             string status = "";
             if (ModelState.IsValid)
             {
-                comment.UserID = (int)Session["UserID"];
-                comment.PostID = id.Value;
-                commentRepository.UpdateComment(comment);
-                message = "comment successfully updated";
-                status = "success";
-                ModelState.Clear();
+                if (id != null)
+                {
+                    comment.UserID = (int)Session["UserID"];
+                    comment.CommentID = id.Value;
+                    commentRepository.UpdateComment(comment);
+                    ModelState.Clear();
+                    message = "comment successfully updated";
+                    status = "success";
+
+                    TempData["message"] = message;
+                    TempData["status"] = status;
+                    return RedirectToAction("Show", "Post", new { id = comment.PostID });
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
             }
             else
             {
                 message = "Error updating comment";
                 status = "danger";
             }
-            ViewBag.Message = message;
-            ViewBag.Status = status;
+            TempData["message"] = message;
+            TempData["status"] = status;
             return RedirectToAction("Show", "Post", new { id = comment.PostID });
         }
 
