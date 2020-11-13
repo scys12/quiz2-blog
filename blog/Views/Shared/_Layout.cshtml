@@ -13,13 +13,13 @@
             <div class="container">
                 @if (Request.IsAuthenticated)
                 {
-                    <a class="navbar-brand" href="../Home/AllPost">
+                    <a class="navbar-brand" href="/Home/AllPost">
                         ElvizaComunity
                     </a>
                 }
                 else
                 {
-                    <a class="navbar-brand" href="../Home/Index">
+                    <a class="navbar-brand" href="/Home/Index">
                         ElvizaComunity
                     </a>
                 }
@@ -37,10 +37,10 @@
                         @if (Request.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link" href="../Home/AllPost">Home</a>
+                                <a class="nav-link" href="/Home/AllPost">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../Post/Index">My Post</a>
+                                <a class="nav-link" href="/Post/Index">My Post</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -64,10 +64,10 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link" href="../User/Login">Login</a>
+                                <a class="nav-link" href="/User/Login">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../User/Registration">Registration</a>
+                                <a class="nav-link" href="/User/Registration">Registration</a>
                             </li>
                         }
                     </ul>
