@@ -133,6 +133,7 @@
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\POCO\User.cs" />
     <Compile Include="Models\POCO\Post.cs" />
+    <Compile Include="Models\Repository\PostRepository.cs" />
     <Compile Include="Models\Repository\UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

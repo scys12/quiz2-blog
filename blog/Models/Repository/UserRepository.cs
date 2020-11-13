@@ -64,6 +64,7 @@ namespace blog.Models.Repository
             bool status = false;
             var user = new User();
             string query = "SELECT TOP 1 * FROM Users WHERE Email=@user_email ";
+            string password ="";
             SqlCommand sqlCommand = new SqlCommand(query, con);
             sqlCommand.Parameters.AddWithValue("@user_email", loginModel.Email);
             SqlDataAdapter sd = new SqlDataAdapter(sqlCommand);
@@ -80,12 +81,47 @@ namespace blog.Models.Repository
                     user.UserID = Convert.ToInt32(dataRow["UserID"]);
                     user.Email = Convert.ToString(dataRow["Email"]);
                     user.FullName = Convert.ToString(dataRow["FullName"]);
-                    user.Password = Convert.ToString(dataRow["Password"]);
+                    password = Convert.ToString(dataRow["Password"]);
                 }
-                if (string.Compare(loginModel.Password, user.Password) == 0)
+                if (string.Compare(loginModel.Password, password) == 0)
                 {
                     status = true;
                 }
+            }
+            if (status)
+            {
+                return user;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public User GetUserDetail(int userID)
+        {
+            connection();
+            bool status = false;
+            var user = new User();
+            string query = "SELECT * FROM Users WHERE UserID=@user_id";
+            SqlCommand sqlCommand = new SqlCommand(query, con);
+            sqlCommand.Parameters.AddWithValue("@user_id", userID);
+            SqlDataAdapter sd = new SqlDataAdapter(sqlCommand);
+            DataTable dt = new DataTable();
+
+            con.Open();
+            sd.Fill(dt);
+            con.Close();
+
+            if (dt.Rows.Count == 1)
+            {
+                foreach (DataRow dataRow in dt.Rows)
+                {
+                    user.UserID = Convert.ToInt32(dataRow["UserID"]);
+                    user.Email = Convert.ToString(dataRow["Email"]);
+                    user.FullName = Convert.ToString(dataRow["FullName"]);
+                }
+                status = true;
             }
             if (status)
             {
