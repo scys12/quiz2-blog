@@ -3,43 +3,50 @@
 }
 
 
-<style>
     body {
         background-image: url('/Content/home-bg.jpg');
         "}
 </style>
 
-<div class="container-fluid" style="background-color:lavenderblush">
-    <div class="row >
-        <!-- Post Content Column -->
-        <div class="col-lg-8" style="margin: auto">
-            <!-- Title -->
-            <h1 class="mt-4" style="font-weight:bolder">Judulnya</h1>
-            <!-- Author -->
-            <p>
-                by
-                <a href="#">Username</a>
-            </p>
-            <!-- Date/Time -->
-            <p>Posted on : Tanggal Post</p>
-            <hr>
-            <!-- Post Content -->
-            <h3 style="word-wrap: break-word">Blalalallalallaaa deskripsinyaa</h3>
-            <hr>
-            <div class="card my-4">
-                <h5 class="card-header">Leave a Comment:</h5>
-                <div class="card-body align-content-center">
-                    <form method="POST" action="{{action('CommentController@store')}}">
-                        <div class="form-group">
-                            <textarea name="body" class="form-control" style="width:800px" rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Post Comment</button>
-                    </form>
+<div class="container mt-5 mb-5 ">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-8">
+            <a href="/home" class="font-weight-bold" style="color:dark;">Kembali</a>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div>{{ $pertanyaan->get_users->name}}</div>
+                    <div class="text-muted small">{{ $pertanyaan->created_at->diffForHumans() }}</div>
+                </div>
+                <div class="card-body">
+                    <p>{{ $pertanyaan->pertanyaan }}</p>
+                </div>
+                <div class="card-footer pl-3">
                 </div>
             </div>
-            <!-- Comments Form -->
+
+            <!-- BUAT KOMENTAR -->
+            <h5> Tambahkan Komentar </h5>
+            <form method="post" action="/jawabans">
+                <div class="form-group">
+                    <textarea class="form-control" id="jawaban" name=jawaban rows="3"></textarea>
+                    <input hidden type="text" class="form-control" id="user_id" name=user_id value="{{ Auth::user()->id }}">
+                    <input hidden type="text" class="form-control" id="pertanyaan_id" name=pertanyaan_id value="{{ $pertanyaan->id }}">
+                </div>
+                <button class="btn btn-primary mb-5" type="submit">Kirim</button>
+            </form>
+
+            <!-- DAFTAR KOMENTAR -->
+            <h3 class="mb-3">Komentar </h3>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div>{{ $pertanyaan->get_users->name}}</div>
+                    <div class="text-muted small">{{ $pertanyaan->created_at->diffForHumans() }}</div>
+                </div>
+                <div class="card-body">
+                    <p>{{ $pertanyaan->pertanyaan }}</p>
+                </div>
+                <div class="card-footer pl-3">
+                </div>
+            </div>
         </div>
     </div>
-    <!-- /.row -->
-</div>
-<!-- /.container --> 
